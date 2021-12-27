@@ -32,7 +32,6 @@ class _WallpaperState extends State<Wallpaper> {
       height: size.height * .4,
       width: size.width,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           buildListTile(size, context),
           Row(
