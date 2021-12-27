@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-import 'hero/hero.dart';
 import 'page/film_page.dart';
 
 void main() {
@@ -12,11 +10,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: const FilmPage(),
-        initialRoute: '/',
-        routes: {'/\$Hero': (context) => const $Hero()});
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      home: FilmPage(),
+    );
   }
 }

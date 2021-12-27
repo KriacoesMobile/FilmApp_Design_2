@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AvatarAndMenu extends StatelessWidget {
-  const AvatarAndMenu({ Key? key }) : super(key: key);
+  const AvatarAndMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(left: 20.0, right: 20, top: 50, bottom: 20),
+      padding: const EdgeInsets.only(right: 20, top: 50, bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

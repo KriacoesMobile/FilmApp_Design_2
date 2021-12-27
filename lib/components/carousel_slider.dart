@@ -1,91 +1,79 @@
 import 'package:film_page_design/constant/constant.dart';
+import 'package:film_page_design/wallpaper/wallpaper.dart';
 import 'package:flutter/material.dart';
 
-class $CarouselSlider extends StatefulWidget {
-  const $CarouselSlider({Key? key}) : super(key: key);
+class CarouselSliderP extends StatefulWidget {
+  const CarouselSliderP({Key? key}) : super(key: key);
 
   @override
-  State<$CarouselSlider> createState() => _$CarouselSliderState();
+  State<CarouselSliderP> createState() => _CarouselSliderPState();
 }
 
-class _$CarouselSliderState extends State<$CarouselSlider> {
+class _CarouselSliderPState extends State<CarouselSliderP> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Expanded(
-        child: ListView.builder(
-            itemCount: listImage.length,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, int index) {
-              print(index);
-              return GestureDetector(
-                child: Container(
-                  alignment: Alignment.topCenter,
-                  width: size.width * .6,
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.fitHeight,
-                                image: AssetImage(listImage[index].toString())),
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                          width: size.width * .6,
-                          height: size.width * .6,
-                        ),
-                      ),
-                      buildTextExpanded(size),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  Navigator.pushNamed(context, '/\$Hero');
-                },
-              );
-            }));
+      child: ListView.builder(
+        itemCount: listImage.length,
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return buildGestureDetector(size, index, context);
+        },
+      ),
+    );
   }
 
-  // GestureDetector buildGestureDetector(Size size, BuildContext context) {
-  //   return GestureDetector(
-  //     child: Container(
-  //       alignment: Alignment.topCenter,
-  //       width: size.width * .6,
-  //       margin: const EdgeInsets.symmetric(horizontal: 5.0),
-  //       decoration: BoxDecoration(
-  //         borderRadius: BorderRadius.circular(30),
-  //       ),
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           Expanded(
-  //             flex: 5,
-  //             child: Container(
-  //               decoration: BoxDecoration(
-  //                 image: DecorationImage(
-  //                     fit: BoxFit.fitHeight, image: AssetImage(listImage[0])),
-  //                 borderRadius: BorderRadius.circular(30),
-  //               ),
-  //               width: size.width * .6,
-  //               height: size.width * .6,
-  //             ),
-  //           ),
-  //           buildTextExpanded(size),
-  //         ],
-  //       ),
-  //     ),
-  //     onTap: () {
-  //       Navigator.pushNamed(context, '/\$Hero');
-  //     },
-  //   );
-  // }
+  GestureDetector buildGestureDetector(
+      Size size, int index, BuildContext context) {
+    return GestureDetector(
+      child: Container(
+        alignment: Alignment.topCenter,
+        width: size.width * .6,
+        margin: const EdgeInsets.symmetric(horizontal: 5.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            buildImageExpanded(index, size),
+            buildTextExpanded(size),
+          ],
+        ),
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          buildNavigatorWallpaper(index),
+        );
+      },
+    );
+  }
+
+  MaterialPageRoute<dynamic> buildNavigatorWallpaper(int index) {
+    return MaterialPageRoute(
+      builder: (context) => Wallpaper(
+        heroId: 'popular$index',
+        imageUrl: listImage[index],
+      ),
+    );
+  }
+
+  Expanded buildImageExpanded(int index, Size size) {
+    return Expanded(
+      flex: 5,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(30),
+        child: Image.asset(
+          listImage[index],
+          fit: BoxFit.cover,
+          width: size.width * .6,
+          height: size.width * .6,
+        ),
+      ),
+    );
+  }
 
   Expanded buildTextExpanded(Size size) {
     return Expanded(
@@ -107,19 +95,4 @@ class _$CarouselSliderState extends State<$CarouselSlider> {
       ),
     );
   }
-
-  // Expanded buildImageExpanded(Size size) {
-  //   return Expanded(
-  //     flex: 5,
-  //     child: Container(
-  //       decoration: BoxDecoration(
-  //         image: DecorationImage(
-  //             fit: BoxFit.fitHeight, image: AssetImage(listImage[0])),
-  //         borderRadius: BorderRadius.circular(30),
-  //       ),
-  //       width: size.width * .6,
-  //       height: size.width * .6,
-  //     ),
-  //   );
-  // }
 }

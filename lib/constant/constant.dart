@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 const String title = '''Spider-Man is a 2002 American superhero film 
 based on the Marvel Comics character of the 
 same name. Spider-Man premiered at the Mann 
@@ -6,6 +8,9 @@ released in the United States four days
 later on May 3.''';
 
 List listImage = [
+  'assets/image/film.jpeg',
   'assets/image/joker.jpg',
-  'asstes/image/spiderman.jpg',
 ];
+
+kDefaultPadding(BuildContext context) =>
+    MediaQuery.of(context).size.width * .05;

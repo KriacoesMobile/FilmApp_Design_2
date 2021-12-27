@@ -1,3 +1,5 @@
+import 'package:film_page_design/constant/constant.dart';
+
 import '../components/avatar_menu.dart';
 import '../components/carousel_slider.dart';
 import '../components/category_list_builder.dart';
@@ -18,16 +20,20 @@ class _FilmPageState extends State<FilmPage> {
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-      body: Column(
-        children: [
-          const AvatarAndMenu(),
-          const SearchBox(),
-          const SizedBox(height: 15),
-          const $DefaultTabController(),
-          const SizedBox(height: 5),
-          SizedBox(height: size.width * .37, child: const CategoryList()),
-          const $CarouselSlider()
-        ],
+      body: Padding(
+        padding: EdgeInsets.only(left: kDefaultPadding(context)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const AvatarAndMenu(),
+            const SearchBox(),
+            const SizedBox(height: 15),
+            const KDefaultTabController(),
+            const SizedBox(height: 5),
+            SizedBox(height: size.width * .37, child: const CategoryList()),
+            const CarouselSliderP(),
+          ],
+        ),
       ),
     );
   }

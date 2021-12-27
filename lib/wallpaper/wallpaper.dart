@@ -3,14 +3,16 @@ import 'dart:ui';
 import 'package:film_page_design/constant/constant.dart';
 import 'package:flutter/material.dart';
 
-class $Hero extends StatefulWidget {
-  const $Hero({Key? key}) : super(key: key);
+class Wallpaper extends StatefulWidget {
+  final String heroId, imageUrl;
+  const Wallpaper({Key? key, required this.heroId, required this.imageUrl})
+      : super(key: key);
 
   @override
-  _$heroState createState() => _$heroState();
+  _WallpaperState createState() => _WallpaperState();
 }
 
-class _$heroState extends State<$Hero> {
+class _WallpaperState extends State<Wallpaper> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -29,10 +31,17 @@ class _$heroState extends State<$Hero> {
     return Container(
       height: size.height * .4,
       width: size.width,
-      child: Stack(
+      child: Column(
         children: [
           buildListTile(size, context),
-          buildPositionedText1(size, context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              buildTabBar(),
+              const SizedBox(width: 5),
+              buildText(size, context),
+            ],
+          ),
           buildBottomContainer(size, context)
         ],
       ),
@@ -50,9 +59,36 @@ class _$heroState extends State<$Hero> {
     );
   }
 
-  Positioned buildBottomContainer(Size size, BuildContext context) {
-    return Positioned(
-      bottom: 0,
+  DefaultTabController buildTabBar() {
+    return const DefaultTabController(
+      initialIndex: 0,
+      length: 3,
+      child: RotatedBox(
+        quarterTurns: 3,
+        child: TabBar(
+          isScrollable: true,
+          labelPadding: EdgeInsets.symmetric(horizontal: 10),
+          tabs: [
+            Tab(
+              text: 'Trailer',
+            ),
+            Tab(
+              text: 'Cast',
+            ),
+            Tab(
+              text: 'Overview',
+            )
+          ],
+          indicatorColor: Colors.white,
+          indicatorSize: TabBarIndicatorSize.label,
+        ),
+      ),
+    );
+  }
+
+  Align buildBottomContainer(Size size, BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
       child: Container(
         alignment: Alignment.center,
         height: size.height * .07,
@@ -69,10 +105,8 @@ class _$heroState extends State<$Hero> {
     );
   }
 
-  Positioned buildPositionedText1(Size size, BuildContext context) {
-    return Positioned(
-      left: size.width * .1,
-      top: size.width * .2,
+  Expanded buildText(Size size, BuildContext context) {
+    return Expanded(
       child: Text(
         title,
         style:
@@ -84,7 +118,7 @@ class _$heroState extends State<$Hero> {
   ListTile buildListTile(Size size, BuildContext context) {
     return ListTile(
       enabled: false,
-      contentPadding: EdgeInsets.only(left: size.width * .1),
+      contentPadding: EdgeInsets.only(left: size.width * .13),
       title: Text(
         'The Spiderman',
         style: Theme.of(context)
@@ -102,16 +136,19 @@ class _$heroState extends State<$Hero> {
     );
   }
 
-  Container buildContainer1(Size size) {
-    return Container(
-      alignment: Alignment.bottomCenter,
-      height: size.height * .6,
-      width: size.width,
-      child: buildBackdropFilter(size),
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: AssetImage('assets/image/spiderman.jpg'),
+  Hero buildContainer1(Size size) {
+    return Hero(
+      tag: widget.heroId,
+      child: Container(
+        alignment: Alignment.bottomCenter,
+        height: size.height * .6,
+        width: size.width,
+        child: buildBackdropFilter(size),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            fit: BoxFit.fill,
+            image: AssetImage(widget.imageUrl),
+          ),
         ),
       ),
     );
@@ -125,9 +162,9 @@ class _$heroState extends State<$Hero> {
         width: size.width * .8,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
-          image: const DecorationImage(
+          image: DecorationImage(
             fit: BoxFit.fill,
-            image: AssetImage('assets/image/spiderman.jpg'),
+            image: AssetImage(widget.imageUrl),
           ),
         ),
       ),
