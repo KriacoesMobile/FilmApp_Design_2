@@ -32,6 +32,7 @@ class _WallpaperState extends State<Wallpaper> {
       height: size.height * .4,
       width: size.width,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           buildListTile(size, context),
           Row(
@@ -86,20 +87,22 @@ class _WallpaperState extends State<Wallpaper> {
     );
   }
 
-  Align buildBottomContainer(Size size, BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        alignment: Alignment.center,
-        height: size.height * .07,
-        width: size.width,
-        color: const Color(0xFF0A2446),
-        child: Text(
-          'Book Now',
-          style: Theme.of(context)
-              .textTheme
-              .bodyText2!
-              .copyWith(color: Colors.white),
+  Expanded buildBottomContainer(Size size, BuildContext context) {
+    return Expanded(
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          alignment: Alignment.center,
+          height: size.height * .07,
+          width: size.width,
+          color: const Color(0xFF0A2446),
+          child: Text(
+            'Book Now',
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: Colors.white),
+          ),
         ),
       ),
     );
